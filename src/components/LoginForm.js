@@ -11,9 +11,7 @@ import {
 
 const LoginForm = (props) => {
     return (
-        <form onSubmit={(e) => {
-            e.preventDefault()
-        }} className='login-form-wrapper'>
+        <form onSubmit={props.handleSubmit} className='login-form-wrapper'>
 
             <div className="logo mb2" style={{backgroundImage: `url(${logo})`}}>
             </div>
@@ -23,6 +21,7 @@ const LoginForm = (props) => {
                 label="Username"
                 className="login-form-item"
                 margin="normal"
+                onChange={props.handleUsername}
             />
 
             <TextField 
@@ -32,6 +31,7 @@ const LoginForm = (props) => {
                 type="password"
                 autoComplete="current-password"
                 margin="normal"
+                onChange={props.handlePassword}
             />
 
             <Typography 
@@ -45,7 +45,6 @@ const LoginForm = (props) => {
                 color="primary" 
                 type="submit"
                 className="mt3 login-form-item"
-                block
             >
                 LOGIN
             </Button>
@@ -58,7 +57,6 @@ const LoginForm = (props) => {
                     console.log('to sign up')
                 }}
                 className="mt3 login-form-item"
-                block
             >
                 REGISTER
             </Button>
