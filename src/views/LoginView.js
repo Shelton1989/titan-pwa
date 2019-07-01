@@ -4,6 +4,14 @@ import React, {
 
 import LoginForm from './../components/LoginForm';
 
+import {
+    login,
+} from '../actions/auth';
+
+import {
+	connect,
+} from 'react-redux';
+
 class LoginView extends Component {
 	state = {
 		username: '',
@@ -12,7 +20,11 @@ class LoginView extends Component {
 
 	handleSubmit = (e) => {
 		e.preventDefault();
-		console.log(this.state.username, this.state.password)
+		let formData = {
+			"username": this.state.username,
+			"password": this.state.password
+		};
+		this.props.login(formData);
 	}
 
 	handleUsername = (e) => {
@@ -40,4 +52,12 @@ class LoginView extends Component {
 	}
 };
 
-export default LoginView;
+const mapStateToProps = state => ({
+	auth: state.auth.authenticated
+})
+
+const mapActionsToProps = {
+	login: login
+}
+
+export default connect(mapStateToProps, mapActionsToProps)(LoginView);

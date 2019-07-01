@@ -8,7 +8,7 @@ class SiteView extends Component {
         drawerOpen: false
     }
 
-    handleDrawer = () => {
+    handleDrawer = (e) => {
         this.setState({
             drawerOpen: !this.state.drawerOpen
         })

@@ -6,7 +6,7 @@ const defaultState = {
     attempting_login: false
 }
 
-export const auth = (state=defaultState, action) => {
+const auth = (state=defaultState, action) => {
     switch (action.type) {
         case ATTEMPT_LOGIN:
             return {
@@ -33,3 +33,5 @@ export const auth = (state=defaultState, action) => {
             }
     }
 }
+
+export default auth;

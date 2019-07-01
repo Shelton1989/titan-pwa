@@ -27,7 +27,10 @@ const defaultState = {};
 const store = createStore(
     reducer,
     defaultState,
-    compose(applyMiddleware(thunk),)
+    compose(
+        applyMiddleware(thunk),
+        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    )
 );
 
 ReactDOM.render(
