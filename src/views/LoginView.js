@@ -12,6 +12,8 @@ import {
 	connect,
 } from 'react-redux';
 
+import {withRouter} from 'react-router-dom';
+
 class LoginView extends Component {
 	state = {
 		username: '',
@@ -24,7 +26,8 @@ class LoginView extends Component {
 			"username": this.state.username,
 			"password": this.state.password
 		};
-		this.props.login(formData);
+		this.props.login(formData, this.props);
+		// this.props.history.push("/sites")
 	}
 
 	handleUsername = (e) => {
@@ -53,11 +56,12 @@ class LoginView extends Component {
 };
 
 const mapStateToProps = state => ({
-	auth: state.auth.authenticated
+	auth: state.auth.authenticated,
+	attemptingLogin: state.auth.attempting_login
 })
 
 const mapActionsToProps = {
 	login: login
 }
 
-export default connect(mapStateToProps, mapActionsToProps)(LoginView);
+export default withRouter(connect(mapStateToProps, mapActionsToProps)(LoginView));

@@ -94,55 +94,55 @@ class AppDrawer extends React.Component {
 }
 
 function ResponsiveDrawer(props) {
-  const { container } = props;
-  const classes = useStyles();
-  const theme = useTheme();
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-
-  function handleDrawerToggle() {
-    setMobileOpen(!mobileOpen);
-  }
-
-  const drawer = (
-    <div>
-      <div className={(classes.toolbar + " logo")} style={{backgroundImage: `url(${logo})`, margin: 'auto'}}>
+    const { container } = props;
+    const classes = useStyles();
+    const theme = useTheme();
+    const [mobileOpen, setMobileOpen] = React.useState(false);
+  
+    function handleDrawerToggle() {
+      setMobileOpen(!mobileOpen);
+    }
+  
+    const drawer = (
+      <div>
+        <div className={(classes.toolbar + " logo")} style={{backgroundImage: `url(${logo})`, margin: 'auto'}}>
+        </div>
+        <Divider />
+        <List>
+          <ListItem button onClick={()=>{
+              props.route.push('/sites')
+          }}>
+              <ListItemIcon><LocationOn /></ListItemIcon>
+              <ListItemText primary="Sites" />
+          </ListItem>
+          <ListItem button onClick={()=>{
+              props.route.push('/assets')
+          }}>
+              <ListItemIcon><WebAsset /></ListItemIcon>
+              <ListItemText primary="Assets" />
+          </ListItem>
+          <ListItem button onClick={()=>{
+              props.route.push('/jobs')
+          }}>
+              <ListItemIcon><ViewList /></ListItemIcon>
+              <ListItemText primary="Jobs" />
+          </ListItem>
+        </List>
+        <Divider />
+        <List>
+          <ListItem button onClick={()=>{
+              props.route.push('/notifications')
+          }}>
+              <ListItemIcon><Notifications /></ListItemIcon>
+              <ListItemText primary="Notifications" />
+          </ListItem>
+          <ListItem button onClick={props.logout}>
+              <ListItemIcon><Lock /></ListItemIcon>
+              <ListItemText primary="Sign Out" />
+          </ListItem>
+        </List>
       </div>
-      <Divider />
-      <List>
-        <ListItem button onClick={()=>{
-            props.route.push('/sites')
-        }}>
-            <ListItemIcon><LocationOn /></ListItemIcon>
-            <ListItemText primary="Sites" />
-        </ListItem>
-        <ListItem button onClick={()=>{
-            props.route.push('/assets')
-        }}>
-            <ListItemIcon><WebAsset /></ListItemIcon>
-            <ListItemText primary="Assets" />
-        </ListItem>
-        <ListItem button onClick={()=>{
-            props.route.push('/jobs')
-        }}>
-            <ListItemIcon><ViewList /></ListItemIcon>
-            <ListItemText primary="Jobs" />
-        </ListItem>
-      </List>
-      <Divider />
-      <List>
-        <ListItem button onClick={()=>{
-            props.route.push('/notifications')
-        }}>
-            <ListItemIcon><Notifications /></ListItemIcon>
-            <ListItemText primary="Notifications" />
-        </ListItem>
-        <ListItem button onClick={props.logout}>
-            <ListItemIcon><Lock /></ListItemIcon>
-            <ListItemText primary="Sign Out" />
-        </ListItem>
-      </List>
-    </div>
-  );
+    );
 
   return (
     <div className={classes.root}>
@@ -159,7 +159,7 @@ function ResponsiveDrawer(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Sites
+            Assets
           </Typography>
         </Toolbar>
       </AppBar>

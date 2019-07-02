@@ -1,12 +1,11 @@
-import React, {Component} from 'react';
+import React from 'react';
 
 import logo from '../assets/img/titan_logo_250.png';
 
 import {
     TextField,
     Button,
-    Typography,
-    Paper
+    Typography
 } from '@material-ui/core';
 
 const LoginForm = (props) => {

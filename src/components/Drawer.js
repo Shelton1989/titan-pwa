@@ -1,37 +1,21 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
-import Fab from '@material-ui/core/Fab';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-
-import {
-    Lock,
-    Notifications,
-    ViewList,
-    LocationOn,
-    WebAsset,
-    Add,
-} from '@material-ui/icons'
-
-import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom';
-
-// Redux actions
-import {
-    logout
-} from '../actions/auth'
-import logo from '../assets/img/titan_logo_250.png'
 
 const drawerWidth = 240;
 
@@ -65,35 +49,9 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     padding: theme.spacing(3),
   },
-  fabPosition: {
-    position: 'fixed',
-    bottom: '15px',
-    right: '15px',
-  }
 }));
 
-class AppDrawer extends React.Component {
-
-    handleLogout = () => {
-        this.props.logout(this.props)
-    }
-
-    handleAdd = () => {
-        console.log('add')
-    }
-
-    render() {
-        return (
-            <ResponsiveDrawer 
-                logout={this.handleLogout}
-                add={this.handleAdd}
-                route = {this.props.history}
-            />
-        )
-    }
-}
-
-function ResponsiveDrawer(props) {
+export default function ResponsiveDrawer(props) {
   const { container } = props;
   const classes = useStyles();
   const theme = useTheme();
@@ -105,41 +63,24 @@ function ResponsiveDrawer(props) {
 
   const drawer = (
     <div>
-      <div className={(classes.toolbar + " logo")} style={{backgroundImage: `url(${logo})`, margin: 'auto'}}>
-      </div>
+      <div className={classes.toolbar} />
       <Divider />
       <List>
-        <ListItem button onClick={()=>{
-            props.route.push('/sites')
-        }}>
-            <ListItemIcon><LocationOn /></ListItemIcon>
-            <ListItemText primary="Sites" />
-        </ListItem>
-        <ListItem button onClick={()=>{
-            props.route.push('/assets')
-        }}>
-            <ListItemIcon><WebAsset /></ListItemIcon>
-            <ListItemText primary="Assets" />
-        </ListItem>
-        <ListItem button onClick={()=>{
-            props.route.push('/jobs')
-        }}>
-            <ListItemIcon><ViewList /></ListItemIcon>
-            <ListItemText primary="Jobs" />
-        </ListItem>
+        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+          <ListItem button key={text}>
+            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+            <ListItemText primary={text} />
+          </ListItem>
+        ))}
       </List>
       <Divider />
       <List>
-        <ListItem button onClick={()=>{
-            props.route.push('/notifications')
-        }}>
-            <ListItemIcon><Notifications /></ListItemIcon>
-            <ListItemText primary="Notifications" />
-        </ListItem>
-        <ListItem button onClick={props.logout}>
-            <ListItemIcon><Lock /></ListItemIcon>
-            <ListItemText primary="Sign Out" />
-        </ListItem>
+        {['All mail', 'Trash', 'Spam'].map((text, index) => (
+          <ListItem button key={text}>
+            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+            <ListItemText primary={text} />
+          </ListItem>
+        ))}
       </List>
     </div>
   );
@@ -159,7 +100,7 @@ function ResponsiveDrawer(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Sites
+            Responsive drawer
           </Typography>
         </Toolbar>
       </AppBar>
@@ -219,24 +160,13 @@ function ResponsiveDrawer(props) {
           nibh sit. Ornare aenean euismod elementum nisi quis eleifend. Commodo viverra maecenas
           accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam ultrices sagittis orci a.
         </Typography>
-        <Fab
-            color="primary"
-            className={classes.fabPosition}
-            onClick={props.add}
-        >
-            <Add />
-        </Fab>
       </main>
     </div>
   );
 }
 
-const mapStateToProps = state => ({
-
-});
-
-const mapActionsToProps = {
-    logout,
-}
-
-export default withRouter(connect(mapStateToProps, mapActionsToProps)(AppDrawer));
+ResponsiveDrawer.propTypes = {
+  // Injected by the documentation to work in an iframe.
+  // You won't need it on your project.
+  container: PropTypes.object,
+};

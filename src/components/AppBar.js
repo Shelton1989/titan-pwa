@@ -31,12 +31,12 @@ const TopBar = (props) => {
                 </Typography>
 
                 <div style={{width: '100%', display: 'flex', justifyContent: 'flex-end'}}>
-                    <IconButton edge="end" color="inherit">
+                    <IconButton color="inherit">
                         <Badge badgeContent={4} color="secondary">
                             <MailIcon />
                         </Badge>
                     </IconButton>
-                    <IconButton edge="end" color="inherit">
+                    <IconButton color="inherit">
                         <Badge badgeContent={17} color="secondary">
                             <NotificationsIcon />
                         </Badge>
