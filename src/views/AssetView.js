@@ -32,6 +32,11 @@ import {withRouter} from 'react-router-dom';
 import {
     logout
 } from '../actions/auth';
+
+import {
+    getAssetList
+} from '../actions/assets';
+
 import logo from '../assets/img/titan_logo_250.png';
 
 const options = {
@@ -124,6 +129,10 @@ const useStyles = makeStyles(theme => ({
 
 class AppDrawer extends React.Component {
 
+    componentWillMount = () => {
+        this.props.getAssetList()
+    }
+
     handleLogout = () => {
         this.props.logout(this.props)
     }
@@ -133,11 +142,13 @@ class AppDrawer extends React.Component {
     }
 
     render() {
+        const {assets} = this.props
         return (
             <ResponsiveDrawer 
                 logout={this.handleLogout}
                 add={this.handleAdd}
                 route = {this.props.history}
+                assets={assets}
             />
         )
     }
@@ -250,6 +261,7 @@ function ResponsiveDrawer(props) {
             title={'Assets'}
             columns={columns}
             options={options}
+            data={props.assets}
         />
         <Fab
             color="primary"
@@ -264,11 +276,12 @@ function ResponsiveDrawer(props) {
 }
 
 const mapStateToProps = state => ({
-
+    assets: state.assets.assetList
 });
 
 const mapActionsToProps = {
     logout,
+    getAssetList
 }
 
 export default withRouter(connect(mapStateToProps, mapActionsToProps)(AppDrawer));
