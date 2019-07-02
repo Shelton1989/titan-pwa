@@ -3,7 +3,8 @@ import './App.css';
 
 import LoginView from './views/LoginView';
 import SiteView from './views/SiteView';
-import AssetsView from './views/AssetView'
+import AssetsView from './views/AssetView';
+import JobsView from './views/JobsView';
 
 import {
   BrowserRouter,
@@ -20,6 +21,7 @@ function App() {
           <Route path="/login" component={LoginView}></Route>
           <PrivateRoute path="/sites" component={SiteView} ></PrivateRoute>
           <PrivateRoute path="/assets" component={AssetsView} ></PrivateRoute>
+          <PrivateRoute path="/jobs" component={JobsView} ></PrivateRoute>
         </Switch>
       </BrowserRouter>
     </div>
