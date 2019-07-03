@@ -52,9 +52,39 @@ const columns = [
     }
 ];
 
+const data = [
+  {
+    title: 'Bryanston',
+    manager_name: 'Frank Sinatra',
+    contact_number: '0817670472'
+  },
+  {
+    title: 'Brampark',
+    manager_name: 'Jack Nicolson',
+    contact_number: '0817670472'
+  },
+  {
+    title: 'Sandton',
+    manager_name: 'Don Rickles',
+    contact_number: '0817670472'
+  },
+  {
+    title: 'Northriding',
+    manager_name: 'Sidney Portier',
+    contact_number: '0817670472'
+  },
+  {
+    title: 'Kensington',
+    manager_name: 'Jessie Jackson',
+    contact_number: '0817670472'
+  }
+];
+
 const options = {
-    filterType: 'checkbox'
-}
+    filter: true,
+    filterType: 'dropdown',
+    responsive: 'scroll'
+};
 
 const drawerWidth = 240;
 
@@ -221,6 +251,7 @@ function ResponsiveDrawer(props) {
         <div className={classes.toolbar} />
         <MUIDataTable
             title={'Client Sites'}
+            data={data}
             columns={columns}
             options={options}
         />
