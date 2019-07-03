@@ -77,6 +77,31 @@ const data = [
     title: 'Kensington',
     manager_name: 'Jessie Jackson',
     contact_number: '0817670472'
+  },
+  {
+    title: 'Bryanston',
+    manager_name: 'Frank Sinatra',
+    contact_number: '0817670472'
+  },
+  {
+    title: 'Brampark',
+    manager_name: 'Jack Nicolson',
+    contact_number: '0817670472'
+  },
+  {
+    title: 'Sandton',
+    manager_name: 'Don Rickles',
+    contact_number: '0817670472'
+  },
+  {
+    title: 'Northriding',
+    manager_name: 'Sidney Portier',
+    contact_number: '0817670472'
+  },
+  {
+    title: 'Kensington',
+    manager_name: 'Jessie Jackson',
+    contact_number: '0817670472'
   }
 ];
 
@@ -116,7 +141,9 @@ const useStyles = makeStyles(theme => ({
   },
   content: {
     flexGrow: 1,
+    marginBottom: theme.spacing(8),
     padding: theme.spacing(3),
+    width: '100vw',
   },
   fabPosition: {
     position: 'fixed',
@@ -125,7 +152,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-class AppDrawer extends React.Component {
+class SiteView extends React.Component {
 
     handleLogout = () => {
         this.props.logout(this.props)
@@ -275,4 +302,4 @@ const mapActionsToProps = {
     logout,
 }
 
-export default withRouter(connect(mapStateToProps, mapActionsToProps)(AppDrawer));
+export default withRouter(connect(mapStateToProps, mapActionsToProps)(SiteView));

@@ -40,12 +40,14 @@ import {
 import logo from '../assets/img/titan_logo_250.png';
 
 const options = {
-    filterType: 'checkbox'
+  filter: true,
+  filterType: 'dropdown',
+  responsive: 'scroll'
 }
 
 const columns = [
     {
-        name: 'garage',
+        name: 'garage.title',
         label: 'Garage',
         options: {
             filter: true,
@@ -58,21 +60,6 @@ const columns = [
     {
         name: 'make',
         label: 'Make',
-        options: {
-            filter: true,
-            sort: true
-        }
-    },
-    {
-        name: 'model',
-        label: 'Model',
-        options: {
-            filter: true,
-        }
-    },
-    {
-        name: 'installation_date',
-        label: 'Installation Date',
         options: {
             filter: true,
             sort: true
@@ -119,6 +106,8 @@ const useStyles = makeStyles(theme => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
+    marginBottom: theme.spacing(8),
+    width: '100vw',
   },
   fabPosition: {
     position: 'fixed',
@@ -127,7 +116,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-class AppDrawer extends React.Component {
+class AssetView extends React.Component {
 
     componentWillMount = () => {
         this.props.getAssetList()
@@ -284,4 +273,5 @@ const mapActionsToProps = {
     getAssetList
 }
 
-export default withRouter(connect(mapStateToProps, mapActionsToProps)(AppDrawer));
+export default withRouter(connect(mapStateToProps, mapActionsToProps)(AssetView
+));
