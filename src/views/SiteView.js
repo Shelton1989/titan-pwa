@@ -106,9 +106,13 @@ const data = [
 ];
 
 const options = {
-    filter: true,
-    filterType: 'dropdown',
-    responsive: 'scroll'
+  filter: true,
+  filterType: 'dropdown',
+  responsive: 'scroll',
+  selectableRows: 'single',
+  selectableRowsOnClick: true,
+  print: false,
+  download: false,
 };
 
 const drawerWidth = 240;

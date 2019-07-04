@@ -42,7 +42,10 @@ import logo from '../assets/img/titan_logo_250.png';
 const options = {
   filter: true,
   filterType: 'dropdown',
-  responsive: 'scroll'
+  responsive: 'scroll',
+  selectableRows: 'single',
+  print: false,
+  download: false,
 }
 
 const columns = [
