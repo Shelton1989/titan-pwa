@@ -31,8 +31,11 @@ import {withRouter} from 'react-router-dom';
 // Redux actions
 import {
     logout
-} from '../actions/auth'
-import logo from '../assets/img/titan_logo_250.png'
+} from '../actions/auth';
+import {
+  getSiteList
+} from '../actions/sites';
+import logo from '../assets/img/titan_logo_250.png';
 
 const columns = [
     {
@@ -158,6 +161,10 @@ const useStyles = makeStyles(theme => ({
 
 class SiteView extends React.Component {
 
+  componentWillMount = () => {
+    this.props.getSiteList()
+  }
+
     handleLogout = () => {
         this.props.logout(this.props)
     }
@@ -172,6 +179,7 @@ class SiteView extends React.Component {
                 logout={this.handleLogout}
                 add={this.handleAdd}
                 route = {this.props.history}
+                sites={this.props.sites}
             />
         )
     }
@@ -282,7 +290,7 @@ function ResponsiveDrawer(props) {
         <div className={classes.toolbar} />
         <MUIDataTable
             title={'Client Sites'}
-            data={data}
+            data={props.sites}
             columns={columns}
             options={options}
         />
@@ -299,11 +307,12 @@ function ResponsiveDrawer(props) {
 }
 
 const mapStateToProps = state => ({
-
+  sites: state.sites.siteList,
 });
 
 const mapActionsToProps = {
     logout,
+    getSiteList
 }
 
 export default withRouter(connect(mapStateToProps, mapActionsToProps)(SiteView));

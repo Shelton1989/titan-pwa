@@ -45,7 +45,6 @@ const options = {
   responsive: 'scroll',
   selectableRows: 'single',
   print: false,
-  download: false,
 }
 
 const columns = [

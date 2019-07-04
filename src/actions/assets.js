@@ -1,6 +1,10 @@
-import axios from '../api/axios'
+import axios from '../api/axios';
 
-let TOKEN = localStorage.getItem('token')
+const TOKEN = localStorage.getItem('token');
+
+let headers = {
+    "Authorization": `Token ${TOKEN}`
+};
 
 export const LOADING = 'LOADING';
 export const GET_ASSET_LIST = 'GET_ASSET_LIST';
@@ -18,9 +22,7 @@ export const getAssetList = () => {
         dispatch => {
             dispatch(loading())
             axios.get('api/assets/', {
-                headers: {
-                    "Authorization": `Token ${TOKEN}`
-                }
+                headers: headers
             })
             .then(res => {
                 dispatch(populate_asset_list(res.data))

@@ -11,8 +11,8 @@ import {
 } from '../actions/assets';
 
 const defaultState = {
-    assetList: [],
-    loading: false
+    loading: false,
+    assetList: []
 }
 
 const assets = (state=defaultState, action) => {
@@ -34,7 +34,7 @@ const assets = (state=defaultState, action) => {
                 assetList: message
             }
         default:
-            return state
+            return {...state}
     }
 }
 
