@@ -5,6 +5,8 @@ import LoginView from './views/LoginView';
 import SiteView from './views/SiteView';
 import AssetsView from './views/AssetView';
 import JobsView from './views/JobsView';
+import CreateSiteView from './views/CreateSiteView';
+import CreateAssetView from './views/CreateAssetView';
 
 import {
   BrowserRouter,
@@ -22,6 +24,8 @@ function App() {
           <PrivateRoute path="/sites" component={SiteView} ></PrivateRoute>
           <PrivateRoute path="/assets" component={AssetsView} ></PrivateRoute>
           <PrivateRoute path="/jobs" component={JobsView} ></PrivateRoute>
+          <PrivateRoute path="/create_site" component={CreateSiteView} ></PrivateRoute>
+          <PrivateRoute path="/create_asset" component={CreateAssetView} ></PrivateRoute>
         </Switch>
       </BrowserRouter>
     </div>

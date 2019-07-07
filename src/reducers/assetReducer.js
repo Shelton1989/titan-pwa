@@ -8,11 +8,14 @@ import {
     FAILED_TO_GET_ASSET,
     FAILED_TO_CREATE_ASSET,
     FAILED_TO_UPDATE_ASSET,
+    GET_ASSET_FORM_OPTIONS,
+    FAILED_TO_GET_ASSET_FORM_OPTIONS
 } from '../actions/assets';
 
 const defaultState = {
     loading: false,
-    assetList: []
+    assetList: [],
+    assetFormOptions: {}
 }
 
 const assets = (state=defaultState, action) => {
@@ -25,13 +28,25 @@ const assets = (state=defaultState, action) => {
         case GET_ASSET_LIST:
             return {
                 ...state,
+                loading: false,
                 assetList: action.payload
             }
         case FAILED_TO_GET_ASSET_LIST:
-            let message = [action.payload];
             return {
                 ...state,
-                assetList: message
+                loading: false,
+            }
+        case GET_ASSET_FORM_OPTIONS:
+            return {
+                ...state,
+                assetFormOptions: action.payload,
+                loading: false
+            }
+        case FAILED_TO_GET_ASSET_FORM_OPTIONS:
+            return {
+                ...state,
+                loading: false,
+                assetFormOptions: {}
             }
         default:
             return {...state}

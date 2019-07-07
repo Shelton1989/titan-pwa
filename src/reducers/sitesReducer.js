@@ -8,11 +8,15 @@ import {
     FAILED_TO_GET_SITE,
     FAILED_TO_CREATE_SITE,
     FAILED_TO_UPDATE_SITE,
+    GET_SITE_FORM_OPTIONS,
+    FAILED_TO_GET_SITE_FORM_OPTIONS
 } from '../actions/sites';
 
 const defaultState = {
     loading: false,
     siteList: [],
+    siteFormOptions: {},
+    createResult: ''
 }
 
 const sites = (state=defaultState, action) => {
@@ -32,7 +36,29 @@ const sites = (state=defaultState, action) => {
             return {
                 ...state,
                 loading: false,
-                siteList: action.payload
+            }
+        case GET_SITE_FORM_OPTIONS:
+            return {
+                ...state,
+                loading: false,
+                siteFormOptions: action.payload
+            }
+        case FAILED_TO_GET_SITE_FORM_OPTIONS:
+            return {
+                ...state,
+                loading: false,
+            }
+        case CREATE_SITE:
+            return {
+                ...state,
+                loading: false,
+                createResult: action.payload
+            }
+        case FAILED_TO_CREATE_SITE:
+            return {
+                ...state,
+                loading: false,
+                createResult: action.payload
             }
         default:
             return {...state}

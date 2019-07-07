@@ -49,7 +49,7 @@ const options = {
 
 const columns = [
     {
-        name: 'garage.title',
+        name: 'garage',
         label: 'Garage',
         options: {
             filter: true,
@@ -129,7 +129,7 @@ class AssetView extends React.Component {
     }
 
     handleAdd = () => {
-        console.log('add')
+        this.props.history.push("/create_asset")
     }
 
     render() {

@@ -55,59 +55,6 @@ const columns = [
     }
 ];
 
-const data = [
-  {
-    title: 'Bryanston',
-    manager_name: 'Frank Sinatra',
-    contact_number: '0817670472'
-  },
-  {
-    title: 'Brampark',
-    manager_name: 'Jack Nicolson',
-    contact_number: '0817670472'
-  },
-  {
-    title: 'Sandton',
-    manager_name: 'Don Rickles',
-    contact_number: '0817670472'
-  },
-  {
-    title: 'Northriding',
-    manager_name: 'Sidney Portier',
-    contact_number: '0817670472'
-  },
-  {
-    title: 'Kensington',
-    manager_name: 'Jessie Jackson',
-    contact_number: '0817670472'
-  },
-  {
-    title: 'Bryanston',
-    manager_name: 'Frank Sinatra',
-    contact_number: '0817670472'
-  },
-  {
-    title: 'Brampark',
-    manager_name: 'Jack Nicolson',
-    contact_number: '0817670472'
-  },
-  {
-    title: 'Sandton',
-    manager_name: 'Don Rickles',
-    contact_number: '0817670472'
-  },
-  {
-    title: 'Northriding',
-    manager_name: 'Sidney Portier',
-    contact_number: '0817670472'
-  },
-  {
-    title: 'Kensington',
-    manager_name: 'Jessie Jackson',
-    contact_number: '0817670472'
-  }
-];
-
 const options = {
   filter: true,
   filterType: 'dropdown',
@@ -170,7 +117,7 @@ class SiteView extends React.Component {
     }
 
     handleAdd = () => {
-        console.log('add')
+        this.props.history.push('/create_site')
     }
 
     render() {

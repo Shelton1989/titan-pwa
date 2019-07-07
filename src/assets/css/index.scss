@@ -17,6 +17,20 @@ body {
     color: #c87d5e
   }
 
+  .form-input {
+    width: 250px;
+  }
+
+  @media screen and (min-width: 600px) {
+    .form-input {
+      width: 60%;
+    }
+  
+    .form-wrapper {
+      width: 60%;
+    }
+  }
+
   
   // imports
   @import './LoginView.scss';

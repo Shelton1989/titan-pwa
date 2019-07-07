@@ -15,6 +15,8 @@ export const FAILED_TO_GET_SITE_LIST = 'FAILED_TO_GET_SITE_LIST';
 export const FAILED_TO_GET_SITE = 'FAILED_TO_GET_SITE';
 export const FAILED_TO_CREATE_SITE = 'FAILED_TO_CREATE_SITE';
 export const FAILED_TO_UPDATE_SITE = 'FAILED_TO_UPDATE_SITE';
+export const GET_SITE_FORM_OPTIONS = 'GET_SITE_FORM_OPTIONS';
+export const FAILED_TO_GET_SITE_FORM_OPTIONS = 'FAILED_TO_GET_SITE_FORM_OPTIONS';
 
 // Actions
 export const getSiteList = () => {
@@ -24,7 +26,6 @@ export const getSiteList = () => {
             headers: headers
         })
         .then(res => {
-            console.log(res.data)
             dispatch(populate_site_list(res.data));
         })
         .catch(err => {
@@ -34,9 +35,43 @@ export const getSiteList = () => {
     };
 };
 
+export const createSite = (formData, route) => {
+    return dispatch => {
+        dispatch(loading_data());
+        axios.post('api/garages/', formData, {
+            headers: headers
+        })
+        .then(res => {
+            dispatch(create_new_site(res));
+            route.push('/sites')
+        })
+        .catch(err => {
+            dispatch(failed_to_create_new_site(err))
+        })
+    }
+}
 
-// Dispatch
+export const getSiteFormOptions = () => {
+    return dispatch => {
+        dispatch(loading_data());
+        axios.options('api/garages/', {
+            headers: headers
+        })
+        .then(res => {
+            dispatch(populate_site_form_options(res.data.actions.POST))
+        })
+        .catch(err => {
+            dispatch(failed_to_populate_site_form_options())
+        })
+    }
+}
 
+
+// ************Dispatch***************
+
+/*  Populate the client site table or catch errors. 
+    This stores api list items in the sites.siteList array within the app state i.e. redux store
+*/
 const loading_data = () => {
     return {
         type: LOADING,
@@ -56,3 +91,37 @@ const failed_to_populate_site_list = () => {
         payload: 'Unable to get data'
     }
 }
+
+/*  Populate the create form that the users use to add a new site.
+*/
+
+const populate_site_form_options = (res) => {
+    return {
+        type: GET_SITE_FORM_OPTIONS,
+        payload: res
+    }
+}
+
+const failed_to_populate_site_form_options = () => {
+    return {
+        type: FAILED_TO_GET_SITE_FORM_OPTIONS,
+        payload: 'Unable to get form options at this time'
+    }
+}
+
+/* Create new site 
+ */
+
+ const create_new_site = (res) => {
+     return {
+         type: CREATE_SITE,
+         payload: res
+     }
+ }
+
+ const failed_to_create_new_site = (err) => {
+     return {
+         type: FAILED_TO_CREATE_SITE,
+         payload: err
+     }
+ }

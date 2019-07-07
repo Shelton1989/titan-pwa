@@ -29,7 +29,6 @@ const auth = (state=defaultState, action) => {
         default:
             return {
                 ...state,
-                state
             }
     }
 }

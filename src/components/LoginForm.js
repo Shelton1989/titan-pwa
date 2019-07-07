@@ -33,11 +33,11 @@ const LoginForm = (props) => {
                 onChange={props.handlePassword}
             />
 
-            <Typography 
+            {/* <Typography 
                 variant="body1" gutterBottom className="login-form-item login-form-text mt2"
             >
                 Forgot your password? <Typography variant="button" gutterBottom><a href='.'>Click here</a></Typography>.
-            </Typography>
+            </Typography> */}
 
             <Button 
                 variant="contained" 
@@ -48,7 +48,7 @@ const LoginForm = (props) => {
                 LOGIN
             </Button>
 
-            <Button 
+            {/* <Button 
                 variant="outlined" 
                 color="secondary" 
                 onClick={(e)=>{
@@ -58,7 +58,7 @@ const LoginForm = (props) => {
                 className="mt3 login-form-item"
             >
                 REGISTER
-            </Button>
+            </Button> */}
         </form>
     )
 }

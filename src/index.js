@@ -8,6 +8,10 @@ import {ThemeProvider} from '@material-ui/styles'
 
 import {theme} from './theme/theme'
 
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+
+import MomentUtils from '@date-io/moment';
+
 // Redux
 import {
     createStore,
@@ -36,7 +40,9 @@ const store = createStore(
 ReactDOM.render(
    <Provider store={store} >
         <ThemeProvider theme={theme} >
-            <App />
+            <MuiPickersUtilsProvider utils={MomentUtils} >
+                <App />
+            </MuiPickersUtilsProvider>
         </ThemeProvider>
    </Provider>
 , document.getElementById('root'));
