@@ -130,6 +130,7 @@ class CreateAssetView extends Component {
                     onChange={this.handleChange}
                     error={null}
                     handleDate={this.handleDate}
+                    selectedData={this.state.formData}
                 />
             )
         })

@@ -1,33 +1,57 @@
 import React, { useState } from 'react';
 
-import { TextField, FormControlLabel, Switch } from '@material-ui/core';
-import { KeyboardDatePicker } from '@material-ui/pickers';
+import { TextField, FormControlLabel, Switch, NativeSelect, FormControl, InputLabel, FormHelperText } from '@material-ui/core';
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import { datePickerDefaultProps } from '@material-ui/pickers/constants/prop-types';
+import DateFnsUtils from '@date-io/date-fns';
 
 const Input = (props) => {
-    const {item, onChange, error} = props
+    const {item, onChange, error, handleDate, selectedData} = props
     const name = item.label.toLowerCase().replace(' ', '_')
-
-    const [selectedDate, handleDate] = useState(new Date())
+    let selectedDate = selectedData[name]
+    let options = null
+    if (item.choices) {
+        options = item.choices.map((item, index) => {
+            return (
+                <option value={item} key={index}>{item}</option>
+            )
+        })
+    }
     if (item.read_only === true) {
         return null
     } else if (item.type==='field') {
         return (
-            <div>Multiselect</div>
+            <div className="mx2">
+                <FormControl className="form-input">
+                    <InputLabel htmlFor='garage-select'>{item.label}</InputLabel>
+                    <NativeSelect 
+                        name={name}
+                        onChange={onChange}
+                        inputProps={{id: 'garage-select'}}
+                    >
+                        {options}
+                    </NativeSelect>
+                    <FormHelperText>{error}</FormHelperText>
+                </FormControl>
+            </div>
         )
     } else if (item.type==='date') {
         return (
             <div className="mx2">
-                <KeyboardDatePicker 
-                    className="form-input"
-                    clearable
-                    label={item.label}
-                    type="date"
-                    helperText={error}
-                    value={selectedDate}
-                    format="yyyy/mm/dd"
-                    onChange={(date) => handleDate(date)}
-                />
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <KeyboardDatePicker 
+                        className="form-input"
+                        clearable
+                        name={name}
+                        label={item.label}
+                        type="date"
+                        helperText={error}
+                        value={selectedDate}
+                        format="dd/MM/yyyy"
+                        onChange={handleDate}
+                        disableFuture={true}
+                    />
+                </MuiPickersUtilsProvider>
             </div>
         )
     } else if (item.type==='boolean') {
@@ -41,7 +65,6 @@ const Input = (props) => {
                         <Switch name={name} color="primary" checked={false} value="true" onChange={onChange} />
                     }
                     labelPlacement="start"
-                    
                 />
             </div>
         )
