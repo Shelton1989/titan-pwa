@@ -54,6 +54,24 @@ export const getAssetFormOptions = () => {
     }
 }
 
+/** Create new asset */
+
+export const createAsset = (formData, route) => {
+    return dispatch => {
+        dispatch(loading());
+        axios.post('api/assets/', formData, {
+            headers: headers
+        })
+        .then(res => {
+            dispatch(create_new_asset(res));
+            route.history.push('/assets')
+        })
+        .catch(err => {
+            dispatch(failed_to_create_asset(err))
+        })
+    }
+}
+
 // Dispatch
 const loading = () => {
     return {
@@ -75,7 +93,7 @@ const failed_to_populate_asset_list = () => {
     }
 }
 
-/* Populate from options */
+/* Populate form options */
 
 const populate_asset_form_options = (res) => {
     return {
@@ -88,5 +106,21 @@ const failed_to_populate_asset_form_options = () => {
     return {
         type: FAILED_TO_GET_ASSET_FORM_OPTIONS,
         payload: 'Unable to get form at this time'
+    }
+}
+
+/* Create asset result */
+
+const create_new_asset = (res) => {
+    return {
+        type: CREATE_ASSET,
+        payload: res
+    }
+}
+
+const failed_to_create_asset = (err) => {
+    return {
+        type: FAILED_TO_CREATE_ASSET,
+        payload: err
     }
 }

@@ -37,6 +37,7 @@ import {
 
 import {
     getAssetFormOptions,
+    createAsset
 } from '../actions/assets'
 
 
@@ -85,39 +86,45 @@ const useStyles = makeStyles(theme => ({
 class CreateAssetView extends Component {
 
     state = {
-        formData: {}
+      formData: {
+        water_trap: true,
+      }
     }
+
+    dateInput = React.createRef()
 
     componentWillMount = ()=> {
-        this.props.getAssetFormOptions()
-    }
-
-    handleDate = (date, name) => {
-        let formData = {...this.state.formData};
-        formData[name] = date;
-        this.setState({
-            formData
-        })
+      this.props.getAssetFormOptions()
     }
 
     handleChange = (e) => {
-        let name = e.target.name;
-        let value = e.target.value;
-        let formData = {...this.state.formData}
-        formData[name] = value
-        this.setState({
-            formData
-        });
+      let name = e.target.name;
+      let value = e.target.value;
+      let formData = {...this.state.formData};
+      formData[name] = value
+      this.setState({
+          formData
+      });
+    }
+
+    handleCheck = e => {
+      let name = e.target.name;
+      // let value = !this.state.formData.name
+      let formData = {...this.state.formData};
+      formData[name] = !formData[name];
+      this.setState({
+        formData
+      });
     }
 
     handleSubmit = (e) => {
-        e.preventDefault();
-        let formData = this.state.formData
-        this.props.createSite(formData, this.props.history)
+      e.preventDefault();
+      let formData = this.state.formData;
+      this.props.createAsset(formData, this.props.history);
     }
 
     handleLogout = () => {
-        this.props.logout(this.props)
+      this.props.logout(this.props);
     }
 
     render() {
@@ -125,37 +132,24 @@ class CreateAssetView extends Component {
         const form = Object.values(formOptions).map((item, index) => {
             return (
                 <Input 
-                    key={index} 
-                    item={item}
-                    onChange={this.handleChange}
-                    error={null}
-                    handleDate={this.handleDate}
-                    selectedData={this.state.formData}
+                  key={index} 
+                  item={item}
+                  onChange={this.handleChange}
+                  error={null}
+                  onChecked={this.handleCheck}
+                  formData={this.state.formData}
                 />
             )
         })
         return (
             <ResponsiveDrawer
-                form={form}
-                handleSubmit={this.handleSubmit}
-                handleChange={this.handleChange}
-                logout={this.handleLogout}
-                route = {this.props.history}
-                sites={this.props.sites}
+              form={form}
+              handleSubmit={this.handleSubmit}
+              handleChange={this.handleChange}
+              logout={this.handleLogout}
+              route = {this.props.history}
+              sites={this.props.sites}
             />
-            // <Paper className="form-wrapper p3">
-            //     <form onSubmit={this.handleSubmit}>
-            //         {form}
-            //         <Button 
-            //             variant="contained" 
-            //             color="primary" 
-            //             type="submit"
-            //             className="mt3 login-form-item"
-            //         >
-            //             CREATE
-            //         </Button>
-            //     </form>
-            // </Paper>
         )
     }
 }
@@ -289,6 +283,7 @@ const mapStateToProps = state => ({
 const mapActionsToProps = {
     getAssetFormOptions,
     logout,
+    createAsset,
 }
 
 export default withRouter(connect(mapStateToProps, mapActionsToProps)(CreateAssetView))

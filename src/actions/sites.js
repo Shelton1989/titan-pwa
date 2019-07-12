@@ -9,6 +9,8 @@ let headers = {
 export const LOADING = 'LOADING';
 export const GET_SITE_LIST = 'GET_SITE_LIST';
 export const GET_SITE = 'GET_SITE';
+export const GET_SITE_OPTIONS = 'GET_SITE_OPTIONS';
+export const FAILED_TO_GET_SITE_OPTIONS = 'FAILED_TO_GET_SITE_OPTIONS';
 export const CREATE_SITE = 'CREATE_SITE';
 export const UPDATE_SITE = 'UPDATE_SITE';
 export const FAILED_TO_GET_SITE_LIST = 'FAILED_TO_GET_SITE_LIST';
@@ -66,6 +68,16 @@ export const getSiteFormOptions = () => {
     }
 }
 
+export const getSiteOptions = () => {
+    return dispatch => {
+        axios.get('api/garages', {
+            headers: headers
+        })
+        .then(res => {
+            dispatch(get_site_options(res.data))
+        })
+    }
+}
 
 // ************Dispatch***************
 
@@ -122,6 +134,21 @@ const failed_to_populate_site_form_options = () => {
  const failed_to_create_new_site = (err) => {
      return {
          type: FAILED_TO_CREATE_SITE,
+         payload: err
+     }
+ }
+
+ /* Get options for dropdown */
+ const get_site_options = (res) => {
+     return {
+         type: GET_SITE_OPTIONS,
+         payload: res
+     }
+ }
+
+ const failed_to_get_site_options = (err) => {
+     return {
+         type: FAILED_TO_GET_SITE_OPTIONS,
          payload: err
      }
  }

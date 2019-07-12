@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { TextField, FormControlLabel, Switch, NativeSelect, FormControl, InputLabel, FormHelperText } from '@material-ui/core';
-import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
-import { datePickerDefaultProps } from '@material-ui/pickers/constants/prop-types';
-import DateFnsUtils from '@date-io/date-fns';
 
 const Input = (props) => {
-    const {item, onChange, error, handleDate, selectedData} = props
-    const name = item.label.toLowerCase().replace(' ', '_')
-    let selectedDate = selectedData[name]
+    const {item, onChange, onChecked, error, formData} = props
+    const name = item.label.toLowerCase().replace(/\s/g, '_')
+    let checked = formData[name]
     let options = null
+    const today = new Date();
+    const defaultDate = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`
+    console.log(defaultDate)
     if (item.choices) {
         options = item.choices.map((item, index) => {
             return (
@@ -38,20 +38,18 @@ const Input = (props) => {
     } else if (item.type==='date') {
         return (
             <div className="mx2">
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <KeyboardDatePicker 
-                        className="form-input"
-                        clearable
-                        name={name}
-                        label={item.label}
-                        type="date"
-                        helperText={error}
-                        value={selectedDate}
-                        format="dd/MM/yyyy"
-                        onChange={handleDate}
-                        disableFuture={true}
-                    />
-                </MuiPickersUtilsProvider>
+                <TextField 
+                    id="date"
+                    label={item.label}
+                    type="date"
+                    defaultValue={defaultDate}
+                    className="form-input"
+                    name={name}
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                    onChange={onChange}
+                />
             </div>
         )
     } else if (item.type==='boolean') {
@@ -60,9 +58,10 @@ const Input = (props) => {
                 <FormControlLabel 
                     value="start"
                     label={item.label}
+                    checked={checked}
                     name={name}
                     control={
-                        <Switch name={name} color="primary" checked={false} value="true" onChange={onChange} />
+                        <Switch name={name} color="primary" value="true" onChange={onChecked} />
                     }
                     labelPlacement="start"
                 />

@@ -15,7 +15,9 @@ import {
 const defaultState = {
     loading: false,
     assetList: [],
-    assetFormOptions: {}
+    assetFormOptions: {},
+    createResult: '',
+    siteOptions: []
 }
 
 const assets = (state=defaultState, action) => {
@@ -47,6 +49,18 @@ const assets = (state=defaultState, action) => {
                 ...state,
                 loading: false,
                 assetFormOptions: {}
+            }
+        case CREATE_ASSET:
+            return {
+                ...state,
+                loading: false,
+                createResult: action.payload
+            }
+        case FAILED_TO_CREATE_ASSET:
+            return {
+                ...state,
+                loading: false,
+                createResult: action.payload
             }
         default:
             return {...state}
