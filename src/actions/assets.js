@@ -64,7 +64,7 @@ export const createAsset = (formData, route) => {
         })
         .then(res => {
             dispatch(create_new_asset(res));
-            route.history.push('/assets')
+            route.push('/assets')
         })
         .catch(err => {
             dispatch(failed_to_create_asset(err))

@@ -70,11 +70,14 @@ export const getSiteFormOptions = () => {
 
 export const getSiteOptions = () => {
     return dispatch => {
-        axios.get('api/garages', {
+        axios.get('api/garages/?asset=None', {
             headers: headers
         })
         .then(res => {
             dispatch(get_site_options(res.data))
+        })
+        .catch(err => {
+            failed_to_get_site_options(err)
         })
     }
 }

@@ -25,10 +25,25 @@ body {
     .form-input {
       width: 60%;
     }
+
+    .form-item {
+      width: 60%
+  }
   
     .form-wrapper {
-      width: 90%;
+      width: 600px;
     }
+  }
+
+  .modal-loader {
+    min-width: 300px;
+    display: flex;
+    justify-content: center;
+    height: 10vh;
+  }
+
+  .spinner {
+    margin: auto;
   }
 
   

@@ -3,17 +3,20 @@ import React from 'react';
 import { TextField, FormControlLabel, Switch, NativeSelect, FormControl, InputLabel, FormHelperText } from '@material-ui/core';
 
 const Input = (props) => {
-    const {item, onChange, onChecked, error, formData} = props
+    const {item, onChange, onChecked, error, formData, options} = props
     const name = item.label.toLowerCase().replace(/\s/g, '_')
-    let checked = formData[name]
-    let options = null
+    let checked
+    if (formData) {
+        checked = formData[name]
+    }
+    
+    let dropdownOptions
     const today = new Date();
     const defaultDate = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`
-    console.log(defaultDate)
-    if (item.choices) {
-        options = item.choices.map((item, index) => {
+    if (options) {
+        dropdownOptions = options.map((item, index) => {
             return (
-                <option value={item} key={index}>{item}</option>
+                <option value={item.title} key={index}>{item.title}</option>
             )
         })
     }
@@ -29,7 +32,8 @@ const Input = (props) => {
                         onChange={onChange}
                         inputProps={{id: 'garage-select'}}
                     >
-                        {options}
+                        <option value='' />
+                        {dropdownOptions}
                     </NativeSelect>
                     <FormHelperText>{error}</FormHelperText>
                 </FormControl>

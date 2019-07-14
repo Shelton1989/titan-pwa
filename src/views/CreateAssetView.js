@@ -40,6 +40,10 @@ import {
     createAsset
 } from '../actions/assets'
 
+import {
+  getSiteOptions
+} from '../actions/sites'
+
 
 const drawerWidth = 240;
 
@@ -94,10 +98,12 @@ class CreateAssetView extends Component {
     dateInput = React.createRef()
 
     componentWillMount = ()=> {
-      this.props.getAssetFormOptions()
+      this.props.getAssetFormOptions();
+      this.props.getSiteOptions()
     }
 
     handleChange = (e) => {
+      console.log(e)
       let name = e.target.name;
       let value = e.target.value;
       let formData = {...this.state.formData};
@@ -138,6 +144,7 @@ class CreateAssetView extends Component {
                   error={null}
                   onChecked={this.handleCheck}
                   formData={this.state.formData}
+                  options={this.props.siteOptions}
                 />
             )
         })
@@ -264,7 +271,7 @@ function ResponsiveDrawer(props) {
                         variant="contained" 
                         color="primary" 
                         type="submit"
-                        className="mt3 login-form-item"
+                        className="mt3 form-item"
                     >
                         CREATE
                     </Button>
@@ -277,13 +284,15 @@ function ResponsiveDrawer(props) {
 
 const mapStateToProps = state => ({
     formOptions: state.assets.assetFormOptions,
-    result: state.sites.createResult
+    result: state.sites.createResult,
+    siteOptions: state.sites.siteOptions
 })
 
 const mapActionsToProps = {
     getAssetFormOptions,
     logout,
     createAsset,
+    getSiteOptions,
 }
 
 export default withRouter(connect(mapStateToProps, mapActionsToProps)(CreateAssetView))

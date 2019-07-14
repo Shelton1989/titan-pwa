@@ -8,17 +8,22 @@ export const LOGIN_FAILED = 'LOGIN_FAILED';
 
 // actions
 
-export const login = (formData, props) => {
+export const login = (formData, props, handleModalTitle) => {
     return (dispatch) => {
         dispatch(attempting_to_login());
         axios.post('api-token-auth/', formData)
         .then(res => {
             localStorage.setItem('token', res.data.token);
             dispatch(successfully_logged_in());
-            props.history.push('/sites')
+            props.history.push('/sites');
         })
         .catch(err => {
-            dispatch(failed_to_authenticate(err))
+            handleModalTitle()
+            if (err.response.data.non_field_errors[0]) {
+                dispatch(failed_to_authenticate(err.response.data.non_field_errors[0]))
+            } else {
+                return err
+            }
         })
     }
 }

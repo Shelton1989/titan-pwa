@@ -9,14 +9,17 @@ import {
     FAILED_TO_CREATE_SITE,
     FAILED_TO_UPDATE_SITE,
     GET_SITE_FORM_OPTIONS,
-    FAILED_TO_GET_SITE_FORM_OPTIONS
+    FAILED_TO_GET_SITE_FORM_OPTIONS,
+    GET_SITE_OPTIONS,
+    FAILED_TO_GET_SITE_OPTIONS,
 } from '../actions/sites';
 
 const defaultState = {
     loading: false,
     siteList: [],
     siteFormOptions: {},
-    createResult: ''
+    createResult: '',
+    siteOptions: []
 }
 
 const sites = (state=defaultState, action) => {
@@ -59,6 +62,18 @@ const sites = (state=defaultState, action) => {
                 ...state,
                 loading: false,
                 createResult: action.payload
+            }
+        case GET_SITE_OPTIONS:
+            return {
+                ...state,
+                loading: false,
+                siteOptions: action.payload
+            }
+        case FAILED_TO_GET_SITE_OPTIONS:
+            return {
+                ...state,
+                loading: false,
+                siteFormOptions: action.payload
             }
         default:
             return {...state}

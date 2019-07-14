@@ -261,7 +261,7 @@ function ResponsiveDrawer(props) {
                         variant="contained" 
                         color="primary" 
                         type="submit"
-                        className="mt3 login-form-item"
+                        className="mt3 form-item"
                     >
                         CREATE
                     </Button>

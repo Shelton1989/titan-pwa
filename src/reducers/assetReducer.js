@@ -17,7 +17,6 @@ const defaultState = {
     assetList: [],
     assetFormOptions: {},
     createResult: '',
-    siteOptions: []
 }
 
 const assets = (state=defaultState, action) => {
