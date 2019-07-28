@@ -5,7 +5,6 @@ import logo from '../assets/img/titan_logo_250.png';
 import {
     TextField,
     Button,
-    Typography
 } from '@material-ui/core';
 
 const LoginForm = (props) => {

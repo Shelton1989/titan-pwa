@@ -18,7 +18,6 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import {
     Lock,
     Notifications,
-    ViewList,
     LocationOn,
     WebAsset,
     Add,

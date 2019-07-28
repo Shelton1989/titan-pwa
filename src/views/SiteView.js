@@ -15,7 +15,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import MUIDataTable from 'mui-datatables';
 
 import {
     Lock,
@@ -61,30 +60,30 @@ import logo from '../assets/img/titan_logo_250.png';
 const columns = [
   {
       name: 'title',
-      label: 'Title',
+      title: 'Title',
   },
   {
       name: 'manager_name',
-      label: 'Contact Person',
+      title: 'Contact Person',
   },
   {
       name: 'contact_number',
-      label: 'Contact Number',
+      title: 'Contact Number',
   }
 ];
 
-const options = {
-  filter: true,
-  filterType: 'dropdown',
-  responsive: 'scroll',
-  selectableRows: 'none',
-  // selectableRowsOnClick: true,
-  print: false,
-  download: false,
-  onRowClick: (data, props) => {
-    console.log(data[0].toLowerCase().replace(/\s/g, '_'), props)
-  }
-};
+// const options = {
+//   filter: true,
+//   filterType: 'dropdown',
+//   responsive: 'scroll',
+//   selectableRows: 'none',
+//   // selectableRowsOnClick: true,
+//   print: false,
+//   download: false,
+//   onRowClick: (data, props) => {
+//     console.log(data[0].toLowerCase().replace(/\s/g, '_'), props)
+//   }
+// };
 
 const drawerWidth = 240;
 
@@ -250,13 +249,13 @@ function ResponsiveDrawer(props) {
       </nav>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <MUIDataTable
+        {/* <MUIDataTable
             title={'Client Sites'}
             data={props.sites}
             columns={columns}
             options={options}
-        />
-        {/* <Paper>
+        /> */}
+        <Paper>
           <Grid
             rows={props.sites}
             columns={columns}
@@ -264,7 +263,7 @@ function ResponsiveDrawer(props) {
             <Table />
             <TableHeaderRow />
           </Grid>
-        </Paper> */}
+        </Paper>
         <Fab
             color="primary"
             className={classes.fabPosition}

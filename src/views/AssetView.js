@@ -15,7 +15,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import MUIDataTable from 'mui-datatables';
 
 import {
   Table,
@@ -32,7 +31,7 @@ import {
 } from '@material-ui/icons'
 
 import {connect} from 'react-redux';
-import {withRouter, Link} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 
 // Redux actions
 import {
@@ -45,13 +44,13 @@ import {
 
 import logo from '../assets/img/titan_logo_250.png';
 
-const options = {
-  filter: true,
-  filterType: 'dropdown',
-  responsive: 'scroll',
-  selectableRows: 'single',
-  print: false,
-}
+// const options = {
+//   filter: true,
+//   filterType: 'dropdown',
+//   responsive: 'scroll',
+//   selectableRows: 'single',
+//   print: false,
+// }
 
 const columns = [
     {
