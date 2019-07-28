@@ -67,7 +67,42 @@ export const createAsset = (formData, route) => {
             route.push('/assets')
         })
         .catch(err => {
-            dispatch(failed_to_create_asset(err))
+            dispatch(failed_to_create_asset(err.response.data))
+        })
+    }
+}
+
+/* Get a single asset */
+
+export const getAsset = (id) => {
+    return dispatch => {
+        dispatch(loading());
+        axios.get(`api/assets/${id}`, {
+            headers: headers
+        })
+        .then(res => {
+            dispatch(populate_asset(res.data))
+        })
+        .catch(err=>{
+            dispatch(failed_to_populate_asset(err))
+        })
+    }
+}
+
+/* Update an Asset */
+
+export const updateAsset = (id, formData, route) => {
+    return dispatch => {
+        dispatch(loading());
+        axios.post(`api/asset${id}`, formData, {
+            headers: headers
+        })
+        .then(res => {
+            dispatch();
+            route.push('/assets')
+        })
+        .catch(err => {
+            dispatch()
         })
     }
 }
@@ -90,6 +125,22 @@ const failed_to_populate_asset_list = () => {
     return {
         type: FAILED_TO_GET_ASSET_LIST,
         payload: 'Failed to get asset list'
+    }
+}
+
+/* Populate a single asset view */
+
+const populate_asset = (res) => {
+    return {
+        type: GET_ASSET,
+        payload: res
+    }
+}
+
+const failed_to_populate_asset = (res) => {
+    return {
+        type: FAILED_TO_GET_ASSET,
+        payload: 'failed to get asset at this time.'
     }
 }
 

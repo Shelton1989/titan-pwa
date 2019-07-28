@@ -121,12 +121,6 @@ function ResponsiveDrawer(props) {
               <ListItemIcon><WebAsset /></ListItemIcon>
               <ListItemText primary="Assets" />
           </ListItem>
-          <ListItem button onClick={()=>{
-              props.route.push('/jobs')
-          }}>
-              <ListItemIcon><ViewList /></ListItemIcon>
-              <ListItemText primary="Jobs" />
-          </ListItem>
         </List>
         <Divider />
         <List>

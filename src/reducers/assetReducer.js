@@ -17,6 +17,7 @@ const defaultState = {
     assetList: [],
     assetFormOptions: {},
     createResult: '',
+    asset: {}
 }
 
 const assets = (state=defaultState, action) => {
@@ -60,6 +61,18 @@ const assets = (state=defaultState, action) => {
                 ...state,
                 loading: false,
                 createResult: action.payload
+            }
+        case GET_ASSET:
+            return {
+                ...state,
+                loading: false,
+                asset: action.payload
+            }
+        case FAILED_TO_GET_ASSET:
+            return {
+                ...state,
+                loading: false,
+                asset: action.payload
             }
         default:
             return {...state}

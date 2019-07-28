@@ -103,7 +103,6 @@ class CreateAssetView extends Component {
     }
 
     handleChange = (e) => {
-      console.log(e)
       let name = e.target.name;
       let value = e.target.value;
       let formData = {...this.state.formData};
@@ -134,14 +133,14 @@ class CreateAssetView extends Component {
     }
 
     render() {
-        const {formOptions} = this.props
+        const {formOptions, result} = this.props
         const form = Object.values(formOptions).map((item, index) => {
             return (
                 <Input 
                   key={index} 
                   item={item}
                   onChange={this.handleChange}
-                  error={null}
+                  error={result}
                   onChecked={this.handleCheck}
                   formData={this.state.formData}
                   options={this.props.siteOptions}
@@ -188,12 +187,6 @@ function ResponsiveDrawer(props) {
           }}>
               <ListItemIcon><WebAsset /></ListItemIcon>
               <ListItemText primary="Assets" />
-          </ListItem>
-          <ListItem button onClick={()=>{
-              props.route.push('/jobs')
-          }}>
-              <ListItemIcon><ViewList /></ListItemIcon>
-              <ListItemText primary="Jobs" />
           </ListItem>
         </List>
         <Divider />
@@ -284,7 +277,7 @@ function ResponsiveDrawer(props) {
 
 const mapStateToProps = state => ({
     formOptions: state.assets.assetFormOptions,
-    result: state.sites.createResult,
+    result: state.assets.createResult,
     siteOptions: state.sites.siteOptions
 })
 

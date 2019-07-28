@@ -2,7 +2,7 @@ import React from 'react';
 
 import { TextField, FormControlLabel, Switch, NativeSelect, FormControl, InputLabel, FormHelperText } from '@material-ui/core';
 
-const Input = (props) => {
+const InputUpdate = (props) => {
     const {item, onChange, onChecked, error, formData, options} = props
     const name = item.label.toLowerCase().replace(/\s/g, '_');
     let fieldError = error[name];
@@ -91,4 +91,4 @@ const Input = (props) => {
     }
 }
 
-export default Input;
+export default InputUpdate;

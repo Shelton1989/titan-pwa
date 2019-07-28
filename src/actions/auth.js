@@ -15,7 +15,9 @@ export const login = (formData, props, handleModalTitle) => {
         .then(res => {
             localStorage.setItem('token', res.data.token);
             dispatch(successfully_logged_in());
-            props.history.push('/sites');
+            setTimeout(()=>{
+                props.history.push('/sites');
+            }, 300)
         })
         .catch(err => {
             handleModalTitle()

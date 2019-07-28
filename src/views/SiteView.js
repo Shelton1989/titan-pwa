@@ -14,16 +14,22 @@ import Fab from '@material-ui/core/Fab';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
 import MUIDataTable from 'mui-datatables';
 
 import {
     Lock,
     Notifications,
-    ViewList,
     LocationOn,
     WebAsset,
     Add,
 } from '@material-ui/icons'
+
+import { 
+  Grid, 
+  Table, 
+  TableHeaderRow 
+} from '@devexpress/dx-react-grid-material-ui';
 
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
@@ -37,32 +43,47 @@ import {
 } from '../actions/sites';
 import logo from '../assets/img/titan_logo_250.png';
 
+// const columns = [
+//     {
+//         name: 'title',
+//         title: 'Title',
+//     },
+//     {
+//         name: 'manager_name',
+//         title: 'Contact Person',
+//     },
+//     {
+//         name: 'contact_number',
+//         title: 'Contact Number',
+//     }
+// ];
+
 const columns = [
-    {
-        name: 'title',
-        label: 'Title',
-        options: {
-            filter: true,
-        }
-    },
-    {
-        name: 'manager_name',
-        label: 'Contact Person',
-    },
-    {
-        name: 'contact_number',
-        label: 'Contact Number',
-    }
+  {
+      name: 'title',
+      label: 'Title',
+  },
+  {
+      name: 'manager_name',
+      label: 'Contact Person',
+  },
+  {
+      name: 'contact_number',
+      label: 'Contact Number',
+  }
 ];
 
 const options = {
   filter: true,
   filterType: 'dropdown',
   responsive: 'scroll',
-  selectableRows: 'single',
-  selectableRowsOnClick: true,
+  selectableRows: 'none',
+  // selectableRowsOnClick: true,
   print: false,
   download: false,
+  onRowClick: (data, props) => {
+    console.log(data[0].toLowerCase().replace(/\s/g, '_'), props)
+  }
 };
 
 const drawerWidth = 240;
@@ -160,12 +181,6 @@ function ResponsiveDrawer(props) {
             <ListItemIcon><WebAsset /></ListItemIcon>
             <ListItemText primary="Assets" />
         </ListItem>
-        <ListItem button onClick={()=>{
-            props.route.push('/jobs')
-        }}>
-            <ListItemIcon><ViewList /></ListItemIcon>
-            <ListItemText primary="Jobs" />
-        </ListItem>
       </List>
       <Divider />
       <List>
@@ -241,6 +256,15 @@ function ResponsiveDrawer(props) {
             columns={columns}
             options={options}
         />
+        {/* <Paper>
+          <Grid
+            rows={props.sites}
+            columns={columns}
+          >
+            <Table />
+            <TableHeaderRow />
+          </Grid>
+        </Paper> */}
         <Fab
             color="primary"
             className={classes.fabPosition}

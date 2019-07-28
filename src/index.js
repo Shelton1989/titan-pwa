@@ -8,11 +8,12 @@ import {ThemeProvider} from '@material-ui/styles'
 
 import {theme} from './theme/theme'
 
+import {composeWithDevTools} from 'redux-devtools-extension';
+
 // Redux
 import {
     createStore,
     applyMiddleware,
-    compose,
 } from 'redux';
 
 import {Provider} from 'react-redux'
@@ -27,9 +28,9 @@ const defaultState = {};
 const store = createStore(
     reducer,
     defaultState,
-    compose(
+    // applyMiddleware(thunk)
+    composeWithDevTools(
         applyMiddleware(thunk),
-        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
     )
 );
 

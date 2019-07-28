@@ -48,7 +48,8 @@ export const createSite = (formData, route) => {
             route.push('/sites')
         })
         .catch(err => {
-            dispatch(failed_to_create_new_site(err))
+            console.log(err.response.data)
+            dispatch(failed_to_create_new_site(err.response.data))
         })
     }
 }

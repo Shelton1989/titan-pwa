@@ -24,7 +24,6 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import {
     Lock,
     Notifications,
-    ViewList,
     LocationOn,
     WebAsset,
 } from '@material-ui/icons'
@@ -114,14 +113,14 @@ class CreateSiteView extends Component {
     }
 
     render() {
-        const {formOptions} = this.props
+        const {formOptions, result} = this.props
         const form = Object.values(formOptions).map((item, index) => {
             return (
                 <Input 
                     key={index} 
                     item={item}
                     onChange={this.handleChange}
-                    error={null}
+                    error={result}
                 />
             )
         })
@@ -178,12 +177,6 @@ function ResponsiveDrawer(props) {
           }}>
               <ListItemIcon><WebAsset /></ListItemIcon>
               <ListItemText primary="Assets" />
-          </ListItem>
-          <ListItem button onClick={()=>{
-              props.route.push('/jobs')
-          }}>
-              <ListItemIcon><ViewList /></ListItemIcon>
-              <ListItemText primary="Jobs" />
           </ListItem>
         </List>
         <Divider />

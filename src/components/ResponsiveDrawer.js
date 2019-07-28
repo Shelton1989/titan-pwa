@@ -10,86 +10,26 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import MenuIcon from '@material-ui/icons/Menu';
-import Fab from '@material-ui/core/Fab';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import MUIDataTable from 'mui-datatables';
-
-import {
-  Table,
-  TableHeaderRow,
-  Grid,
-} from '@devexpress/dx-react-grid-material-ui';
 
 import {
     Lock,
     Notifications,
     LocationOn,
     WebAsset,
-    Add,
 } from '@material-ui/icons'
 
 import {connect} from 'react-redux';
-import {withRouter, Link} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 
 // Redux actions
 import {
     logout
 } from '../actions/auth';
 
-import {
-    getAssetList
-} from '../actions/assets';
-
 import logo from '../assets/img/titan_logo_250.png';
-
-const options = {
-  filter: true,
-  filterType: 'dropdown',
-  responsive: 'scroll',
-  selectableRows: 'single',
-  print: false,
-}
-
-const columns = [
-    {
-        name: 'garage',
-        title: 'Garage',
-        options: {
-            filter: true,
-        }
-    },
-    {
-        name: 'asset_serial_number',
-        title: 'Serial Number',
-    },
-    {
-        name: 'make',
-        title: 'Make',
-        options: {
-            filter: true,
-            sort: true
-        }
-    },
-    {
-        name: 'last_service',
-        title: 'Last Service',
-        options: {
-            filter: true,
-            sort: true
-        }
-    },
-    {
-      name: 'next_service',
-      title: 'Next Service',
-      options: {
-        filter: true,
-        sort: true
-      }
-    }
-];
 
 const drawerWidth = 240;
 
@@ -132,34 +72,6 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-class AssetView extends React.Component {
-
-    componentWillMount = () => {
-        this.props.getAssetList()
-    }
-
-    handleLogout = () => {
-        this.props.logout(this.props)
-    }
-
-    handleAdd = () => {
-        this.props.history.push("/create_asset")
-    }
-
-    render() {
-        const {assets} = this.props
-        return (
-            <ResponsiveDrawer 
-                logout={this.handleLogout}
-                add={this.handleAdd}
-                route = {this.props.history}
-                assets={assets}
-                handleRoute={this.props}
-            />
-        )
-    }
-}
-
 function ResponsiveDrawer(props) {
     const { container } = props;
     const classes = useStyles();
@@ -177,13 +89,13 @@ function ResponsiveDrawer(props) {
         <Divider />
         <List>
           <ListItem button onClick={()=>{
-              props.route.push('/sites')
+              props.history.push('/sites')
           }}>
               <ListItemIcon><LocationOn /></ListItemIcon>
               <ListItemText primary="Sites" />
           </ListItem>
           <ListItem button onClick={()=>{
-              props.route.push('/assets')
+              props.history.push('/assets')
           }}>
               <ListItemIcon><WebAsset /></ListItemIcon>
               <ListItemText primary="Assets" />
@@ -192,7 +104,7 @@ function ResponsiveDrawer(props) {
         <Divider />
         <List>
           <ListItem button onClick={()=>{
-              props.route.push('/notifications')
+              props.history.push('/notifications')
           }}>
               <ListItemIcon><Notifications /></ListItemIcon>
               <ListItemText primary="Notifications" />
@@ -220,7 +132,7 @@ function ResponsiveDrawer(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Assets
+            {props.title}
           </Typography>
         </Toolbar>
       </AppBar>
@@ -257,57 +169,18 @@ function ResponsiveDrawer(props) {
       </nav>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        {/* <MUIDataTable
-            title={'Assets'}
-            columns={columns}
-            options={options}
-            data={props.assets}
-        /> */}
-        <Paper>
-          <Grid 
-            columns={columns}
-            rows={props.assets}
-          >
-            <Table 
-              rowComponent={({row, ...restProps}) => {
-                return (
-                  <Table.Row 
-                    {...restProps}
-                    onClick={() => {
-                      // props.route.push(`/assets/${row.asset_serial_number}`)
-                      // console.log(row.url.split('/')[row.url.split('/').length - 1])
-                      let id = row.url.split('/')[row.url.split('/').length - 2]
-                      props.route.push(`/assets/${id}`)
-                    }}
-                    style={{
-                      cursor: 'pointer'
-                    }}
-                  />
-                )
-              }}
-            />
-            <TableHeaderRow />
-          </Grid>
-        </Paper>
-        <Fab
-            color="primary"
-            className={classes.fabPosition}
-            onClick={props.add}
-        >
-            <Add />
-        </Fab>
+        {props.content}
       </main>
     </div>
   );
 }
 
 const mapStateToProps = state => ({
-    assets: state.assets.assetList
+
 });
 
 const mapActionsToProps = {
     logout,
-    getAssetList
 }
 
-export default withRouter(connect(mapStateToProps, mapActionsToProps)(AssetView));
+export default withRouter(connect(mapStateToProps, mapActionsToProps)(ResponsiveDrawer));
