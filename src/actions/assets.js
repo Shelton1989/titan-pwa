@@ -98,11 +98,11 @@ export const updateAsset = (id, formData, route) => {
             headers: headers
         })
         .then(res => {
-            dispatch();
+            dispatch(update_success(res));
             route.push('/assets')
         })
         .catch(err => {
-            dispatch()
+            dispatch(failed_to_update_asset(err))
         })
     }
 }
@@ -172,6 +172,22 @@ const create_new_asset = (res) => {
 const failed_to_create_asset = (err) => {
     return {
         type: FAILED_TO_CREATE_ASSET,
+        payload: err
+    }
+}
+
+/* Update an asset */
+
+const update_success = (res) => {
+    return {
+        type: UPDATE_ASSET,
+        payload: res
+    }
+}
+
+const failed_to_update_asset = (err) => {
+    return {
+        type: FAILED_TO_UPDATE_ASSET,
         payload: err
     }
 }

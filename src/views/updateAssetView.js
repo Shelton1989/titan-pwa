@@ -15,7 +15,8 @@ import { connect } from 'react-redux';
 
 import {
     getAsset,
-    getAssetFormOptions
+    getAssetFormOptions,
+    updateAsset
 } from '../actions/assets';
 
 import InputUpdate from '../components/InputUpdate';
@@ -30,6 +31,13 @@ class UpdateAssetView extends Component {
         const id = this.props.match.params.id
         this.props.getAsset(id);
         this.props.getAssetFormOptions();
+    }
+
+    handleSubmit = () => {
+        const id = this.props.match.params.id
+        const formData = this.state.formData
+        const route = this.props.history
+        this.props.updateAsset(id, formData, route)
     }
     
     render () {
@@ -83,11 +91,13 @@ const mapStateToProps = state => ({
     asset: state.assets.asset,
     loading: state.assets.loading,
     formOptions: state.assets.assetFormOptions,
-    result: state.assets.createResult
+    result: state.assets.createResult,
+    updateResult: state.assets.updateResult
 })
 
 const mapActionsToProps = {
     getAsset,
+    updateAsset,
     getAssetFormOptions
 }
 
