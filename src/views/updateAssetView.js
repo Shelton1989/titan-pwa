@@ -49,6 +49,7 @@ class UpdateAssetView extends Component {
                   item={item}
                   onChange={this.handleChange}
                   error={result}
+                  asset={asset}
                   onChecked={this.handleCheck}
                   formData={this.state.formData}
                   options={this.props.siteOptions}
