@@ -9,6 +9,8 @@ let headers = {
 export const LOADING = 'LOADING';
 export const GET_ASSET_LIST = 'GET_ASSET_LIST';
 export const GET_ASSET = 'GET_ASSET';
+export const DELETE_ASSET = 'DELETE_ASSET';
+export const FAILED_TO_DELETE_ASSET = 'FAILED_TO_DELETE_ASSET';
 export const CREATE_ASSET = 'CREATE_ASSET';
 export const UPDATE_ASSET = 'UPDATE_ASSET';
 export const FAILED_TO_GET_ASSET_LIST = 'FAILED_TO_GET_ASSET_LIST';
@@ -94,7 +96,7 @@ export const getAsset = (id) => {
 export const updateAsset = (id, formData, route) => {
     return dispatch => {
         dispatch(loading());
-        axios.post(`api/asset${id}`, formData, {
+        axios.post(`api/asset/${id}`, formData, {
             headers: headers
         })
         .then(res => {
@@ -103,6 +105,24 @@ export const updateAsset = (id, formData, route) => {
         })
         .catch(err => {
             dispatch(failed_to_update_asset(err))
+        })
+    }
+}
+
+/* Delete an asset */
+
+export const deleteAsset = (id, route) => {
+    return dispatch => {
+        dispatch(loading());
+        axios.delete(`api/assets/${id}`, {
+            headers: headers
+        })
+        .then(res => {
+            dispatch(delete_asset(res));
+            route.push('/assets');
+        })
+        .catch(err => {
+            dispatch(failed_to_delete(err));
         })
     }
 }
@@ -188,6 +208,22 @@ const update_success = (res) => {
 const failed_to_update_asset = (err) => {
     return {
         type: FAILED_TO_UPDATE_ASSET,
+        payload: err
+    }
+}
+
+/* Delete an delete */
+
+const delete_asset = (res) => {
+    return {
+        type: DELETE_ASSET,
+        payload: res
+    }
+}
+
+const failed_to_delete = (err) => {
+    return {
+        type: FAILED_TO_DELETE_ASSET,
         payload: err
     }
 }

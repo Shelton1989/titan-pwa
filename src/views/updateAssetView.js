@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
 import ResponsiveDrawer from '../components/ResponsiveDrawer';
+import Modal from '../components/Modal';
 
 import {
     Paper,
@@ -17,7 +18,8 @@ import { connect } from 'react-redux';
 import {
     getAsset,
     getAssetFormOptions,
-    updateAsset
+    updateAsset,
+    deleteAsset
 } from '../actions/assets';
 
 import InputUpdate from '../components/InputUpdate';
@@ -27,7 +29,9 @@ class UpdateAssetView extends Component {
 
     state = {
         formData: {},
-        modal: false
+        modal: false,
+        message: '',
+        title: '',
     }
 
     componentWillMount = () => {
@@ -44,15 +48,16 @@ class UpdateAssetView extends Component {
     }
 
     handleDelete = () => {
-        const id = this.props.match.params.id
-        const route = this.props.history
         this.setState({
-            modal: true
+            modal: true,
+            message: 'Are you sure you want to delete this asset?',
+            title: 'Please confirm',
         })
-        this.handleConfirm(id, route)
     }
 
-    handleConfirm = (id, route) => {
+    handleConfirm = () => {
+        const id = this.props.match.params.id
+        const route = this.props.history
         this.setState({
             modal: false
         })
@@ -76,45 +81,56 @@ class UpdateAssetView extends Component {
             )
         })
         return (
-            <ResponsiveDrawer 
-                title='Assets'
-                content={loading?
-                    <div>
-                        <CircularProgress />
-                    </div> :
-                    <div>
+            <div>
+                <ResponsiveDrawer 
+                    title='Assets'
+                    content={loading?
                         <div>
-                            <IconButton 
-                                onClick={()=>this.props.history.push('/assets')}
-                            >
-                                <ChevronLeft/>
-                            </IconButton>
-                            <Typography variant="h6" gutterBottom>
-                                Asset number: {asset.asset_serial_number}
-                            </Typography>
-                            <IconButton
-                                onClick={this.handleDelete}
-                            >
-                                <Delete></Delete>
-                            </IconButton>
-                        </div>
-                        <Paper className="form-wrapper p3">
-                            <form >
-                                {form}
-                                <Button 
-                                    variant="contained" 
-                                    color="primary" 
-                                    type="submit"
-                                    className="mt3 form-item"
+                            <CircularProgress />
+                        </div> :
+                        <div>
+                            <div className="header-container">
+                                <IconButton 
+                                    onClick={()=>this.props.history.push('/assets')}
                                 >
-                                    SAVE
-                                </Button>
-                            </form>
-                        </Paper>
-                    </div>
-                    
-                }
-            />
+                                    <ChevronLeft/>
+                                </IconButton>
+                                <Typography variant="h6" gutterBottom>
+                                    Asset number: {asset.asset_serial_number}
+                                </Typography>
+                                <IconButton
+                                    onClick={this.handleDelete}
+                                >
+                                    <Delete></Delete>
+                                </IconButton>
+                            </div>
+                            <Paper className="form-wrapper p3">
+                                <form >
+                                    {form}
+                                    <Button 
+                                        variant="contained" 
+                                        color="primary" 
+                                        type="submit"
+                                        className="mt3 form-item"
+                                    >
+                                        SAVE
+                                    </Button>
+                                </form>
+                            </Paper>
+                        </div>
+                        
+                    }
+                />
+                <Modal 
+                    handleClose={this.handleConfirm}
+                    message={this.state.message}
+                    title={this.state.title}
+                    loading={loading}
+                    open={this.state.modal}
+                    // errorTitle={}
+                    // error={}
+                />
+            </div>
         )
     }
 }
@@ -130,7 +146,8 @@ const mapStateToProps = state => ({
 const mapActionsToProps = {
     getAsset,
     updateAsset,
-    getAssetFormOptions
+    getAssetFormOptions,
+    deleteAsset
 }
 
 export default withRouter(connect(mapStateToProps, mapActionsToProps)(UpdateAssetView))

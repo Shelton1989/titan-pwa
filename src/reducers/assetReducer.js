@@ -2,10 +2,12 @@ import {
     LOADING,
     GET_ASSET_LIST,
     GET_ASSET,
+    DELETE_ASSET,
     CREATE_ASSET,
     UPDATE_ASSET,
     FAILED_TO_GET_ASSET_LIST,
     FAILED_TO_GET_ASSET,
+    FAILED_TO_DELETE_ASSET,
     FAILED_TO_CREATE_ASSET,
     FAILED_TO_UPDATE_ASSET,
     GET_ASSET_FORM_OPTIONS,
@@ -18,7 +20,8 @@ const defaultState = {
     assetFormOptions: {},
     createResult: '',
     asset: {},
-    updateResult: ''
+    updateResult: '',
+    deleteResult: ''
 }
 
 const assets = (state=defaultState, action) => {
@@ -26,13 +29,13 @@ const assets = (state=defaultState, action) => {
         case LOADING:
             return {
                 ...state,
-                loading: action.payload
+                loading: action.payload,
             }
         case GET_ASSET_LIST:
             return {
                 ...state,
+                assetList: action.payload,
                 loading: false,
-                assetList: action.payload
             }
         case FAILED_TO_GET_ASSET_LIST:
             return {
@@ -48,44 +51,56 @@ const assets = (state=defaultState, action) => {
         case FAILED_TO_GET_ASSET_FORM_OPTIONS:
             return {
                 ...state,
+                assetFormOptions: {},
                 loading: false,
-                assetFormOptions: {}
             }
         case CREATE_ASSET:
             return {
                 ...state,
+                createResult: action.payload,
                 loading: false,
-                createResult: action.payload
             }
         case FAILED_TO_CREATE_ASSET:
             return {
                 ...state,
+                createResult: action.payload,
                 loading: false,
-                createResult: action.payload
             }
         case GET_ASSET:
             return {
                 ...state,
+                asset: action.payload,
                 loading: false,
-                asset: action.payload
             }
         case FAILED_TO_GET_ASSET:
             return {
                 ...state,
+                asset: action.payload,
                 loading: false,
-                asset: action.payload
             }
         case UPDATE_ASSET:
             return {
                 ...state,
+                updateResult: action.payload,
                 loading: false,
-                updateResult: action.payload
             }
         case FAILED_TO_UPDATE_ASSET:
             return {
                 ...state,
+                updateResult: action.payload,
                 loading: false,
-                updateResult: action.payload
+            }
+        case DELETE_ASSET:
+            return {
+                ...state,
+                deleteResult: action.payload,
+                loading: false,
+            }
+        case FAILED_TO_DELETE_ASSET:
+            return {
+                ...state,
+                deleteResult: action.payload,
+                loading: false
             }
         default:
             return {...state}
