@@ -8,7 +8,8 @@ import {
     Paper,
     Typography,
     CircularProgress,
-    Button
+    Button,
+    IconButton
 } from '@material-ui/core';
 
 import { connect } from 'react-redux';
@@ -20,11 +21,13 @@ import {
 } from '../actions/assets';
 
 import InputUpdate from '../components/InputUpdate';
+import { ChevronLeft, Delete } from '@material-ui/icons';
 
 class UpdateAssetView extends Component {
 
     state = {
-        formData: {}
+        formData: {},
+        modal: false
     }
 
     componentWillMount = () => {
@@ -38,6 +41,22 @@ class UpdateAssetView extends Component {
         const formData = this.state.formData
         const route = this.props.history
         this.props.updateAsset(id, formData, route)
+    }
+
+    handleDelete = () => {
+        const id = this.props.match.params.id
+        const route = this.props.history
+        this.setState({
+            modal: true
+        })
+        this.handleConfirm(id, route)
+    }
+
+    handleConfirm = (id, route) => {
+        this.setState({
+            modal: false
+        })
+        this.props.deleteAsset(id, route)
     }
     
     render () {
@@ -64,9 +83,21 @@ class UpdateAssetView extends Component {
                         <CircularProgress />
                     </div> :
                     <div>
-                        <Typography variant="h6" gutterBottom>
-                            Asset number: {asset.asset_serial_number}
-                        </Typography>
+                        <div>
+                            <IconButton 
+                                onClick={()=>this.props.history.push('/assets')}
+                            >
+                                <ChevronLeft/>
+                            </IconButton>
+                            <Typography variant="h6" gutterBottom>
+                                Asset number: {asset.asset_serial_number}
+                            </Typography>
+                            <IconButton
+                                onClick={this.handleDelete}
+                            >
+                                <Delete></Delete>
+                            </IconButton>
+                        </div>
                         <Paper className="form-wrapper p3">
                             <form >
                                 {form}
