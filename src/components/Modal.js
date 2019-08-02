@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core'
 
 const FeedBackModal = (props) => {
-    const {onClose, handleClose, message, title, loading, open, errorTitle, error} = props
+    const {onClose, handleClose, message, title, loading, open, errorTitle, error, handleDelete} = props
     return (
         <div>
             <Dialog 
@@ -34,8 +34,11 @@ const FeedBackModal = (props) => {
                     </DialogContentText>
                 </DialogContent>)}
                 <DialogActions>
-                    <Button onClick={handleClose} disabled={loading}>
-                        Close
+                    {handleDelete?(<Button onClick={handleDelete} disabled={loading}>
+                        DELETE
+                    </Button>):null}
+                    <Button onClick={handleClose}>
+                        {handleDelete?'CANCEL':'CLOSE'}
                     </Button>
                 </DialogActions>
             </Dialog>

@@ -1,31 +1,22 @@
 import React from 'react';
 
-import { TextField, FormControlLabel, Switch, NativeSelect, FormControl, InputLabel, FormHelperText, InputAdornment, IconButton, MenuItem, Select, Input } from '@material-ui/core';
+import { TextField, FormControlLabel, Switch, FormControl, InputLabel, FormHelperText, InputAdornment, IconButton, MenuItem, Select, Input } from '@material-ui/core';
 import { Edit } from '@material-ui/icons';
 
 import { useState } from 'react'
 
 const InputUpdate = (props) => {
     const [editVal, setEditVal] = useState(true)
-    const {item, onChange, onChecked, error, formData, options, asset} = props
+    const {item, onChange, onChecked, error, formData, asset} = props
     const name = item.label.toLowerCase().replace(/\s/g, '_');
     let fieldError = error[name];
-    let checked
+    let value = asset[name]
+    let checked = value
     if (formData) {
         checked = formData[name]
     }
-    let value = asset[name]
-    console.log(name, value)
-    let dropdownOptions
     const today = new Date();
     const defaultDate = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`
-    if (options) {
-        dropdownOptions = options.map((item, index) => {
-            return (
-                <option value={item.title} key={index}>{item.title}</option>
-            )
-        })
-    }
     if (item.read_only === true) {
         return null
     } else if (item.type==='field') {
@@ -33,19 +24,8 @@ const InputUpdate = (props) => {
             <div className="mx2">
                 <FormControl className="form-input" error={fieldError?true:false}>
                     <InputLabel htmlFor='garage'>{item.label}</InputLabel>
-                    {/* <NativeSelect 
-                        name={name}
-                        onChange={onChange}
-                        value={value}
-                        InputProps={{
-                            id: 'garage',
-                            readOnly: {editVal}
-                        }}
-                    >
-                        <option value={value} />
-                        {dropdownOptions}
-                    </NativeSelect> */}
                     <Select 
+                        style={{textAlign: 'start'}}
                         value={value}
                         input={<Input name={name} id={name} readOnly />}
                     >
@@ -72,7 +52,7 @@ const InputUpdate = (props) => {
                     value={value}
                     onChange={onChange}
                     InputProps={{
-                        readOnly: {editVal},
+                        readOnly: editVal,
                         endAdornment: (
                             <InputAdornment position="end">
                                 <IconButton 
@@ -94,7 +74,7 @@ const InputUpdate = (props) => {
                 <FormControlLabel 
                     value="start"
                     label={item.label}
-                    checked={value}
+                    checked={checked}
                     name={name}
                     control={
                         <Switch name={name} color="primary" value="true" onChange={onChecked} />
@@ -117,7 +97,7 @@ const InputUpdate = (props) => {
                     onChange={onChange}
                     value={value}
                     InputProps={{
-                        readOnly: {editVal},
+                        readOnly: editVal,
                         endAdornment: (
                             <InputAdornment position="end">
                                 <IconButton 

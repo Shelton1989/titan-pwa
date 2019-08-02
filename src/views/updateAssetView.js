@@ -55,6 +55,12 @@ class UpdateAssetView extends Component {
         })
     }
 
+    handleClose = () => {
+        this.setState({
+            modal: false,
+        })
+    }
+
     handleConfirm = () => {
         const id = this.props.match.params.id
         const route = this.props.history
@@ -122,7 +128,8 @@ class UpdateAssetView extends Component {
                     }
                 />
                 <Modal 
-                    handleClose={this.handleConfirm}
+                    handleClose={this.handleClose}
+                    handleDelete={this.handleConfirm}
                     message={this.state.message}
                     title={this.state.title}
                     loading={loading}
