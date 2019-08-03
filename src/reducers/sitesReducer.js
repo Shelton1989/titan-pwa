@@ -12,6 +12,8 @@ import {
     FAILED_TO_GET_SITE_FORM_OPTIONS,
     GET_SITE_OPTIONS,
     FAILED_TO_GET_SITE_OPTIONS,
+    DELETE_SITE,
+    FAILED_TO_DELETE_SITE,
 } from '../actions/sites';
 
 const defaultState = {
@@ -19,7 +21,10 @@ const defaultState = {
     siteList: [],
     siteFormOptions: {},
     createResult: '',
-    siteOptions: []
+    siteOptions: [],
+    site: {},
+    deleteResult: '',
+    updateResult: ''
 }
 
 const sites = (state=defaultState, action) => {
@@ -74,6 +79,42 @@ const sites = (state=defaultState, action) => {
                 ...state,
                 loading: false,
                 siteFormOptions: action.payload
+            }
+        case GET_SITE:
+            return {
+                ...state,
+                loading: false,
+                site: action.payload
+            }
+        case FAILED_TO_GET_SITE:
+            return {
+                ...state,
+                loading: false,
+                site: action.payload
+            }
+        case UPDATE_SITE:
+            return {
+                ...state,
+                loading: false,
+                updateResult: action.payload
+            }
+        case FAILED_TO_UPDATE_SITE:
+            return {
+                ...state,
+                loading: false,
+                updateResult: action.payload
+            }
+        case DELETE_SITE:
+            return {
+                ...state,
+                loading: false,
+                deleteResult: action.payload
+            }
+        case FAILED_TO_DELETE_SITE:
+            return {
+                ...state,
+                loading: false,
+                deleteResult: action.payload
             }
         default:
             return {...state}

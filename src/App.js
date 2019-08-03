@@ -8,6 +8,7 @@ import JobsView from './views/JobsView';
 import CreateSiteView from './views/CreateSiteView';
 import CreateAssetView from './views/CreateAssetView';
 import UpdateAssetView from './views/updateAssetView';
+import UpdateSiteView from './views/updateSiteView';
 
 import {
   BrowserRouter,
@@ -28,12 +29,13 @@ function App() {
           <Route path="/health" render={()=>{
             return <Redirect to="/login" />
           }} />
-          <PrivateRoute path="/sites" component={SiteView} ></PrivateRoute>
+          <PrivateRoute exact path="/sites" component={SiteView} ></PrivateRoute>
           <PrivateRoute exact path="/assets" component={AssetsView} ></PrivateRoute>
           <PrivateRoute path="/jobs" component={JobsView} ></PrivateRoute>
           <PrivateRoute path="/create_site" component={CreateSiteView} ></PrivateRoute>
           <PrivateRoute path="/create_asset" component={CreateAssetView} ></PrivateRoute>
           <PrivateRoute path="/assets/:id" component={UpdateAssetView} ></PrivateRoute>
+          <PrivateRoute path="/sites/:id" component={UpdateSiteView} ></PrivateRoute>
         </Switch>
       </BrowserRouter>
     </div>

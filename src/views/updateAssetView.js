@@ -69,6 +69,16 @@ class UpdateAssetView extends Component {
         })
         this.props.deleteAsset(id, route)
     }
+
+    handleChange = (e) => {
+        let name = e.target.name;
+        let value = e.target.value;
+        let formData = {...this.state.formData}
+        formData[name] = value
+        this.setState({
+            formData
+        });
+    }
     
     render () {
         const {asset, loading, formOptions, result} = this.props

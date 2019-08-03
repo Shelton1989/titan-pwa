@@ -85,6 +85,56 @@ export const getSiteOptions = () => {
     }
 }
 
+// ****Delete a site
+
+export const deleteSite = (id, route) => {
+    return dispatch => {
+        axios.delete('api/garages/'+id, {
+            headers: headers
+        })
+        .then(res => {
+            dispatch(delete_success(res))
+            route.push('/sites')
+        })
+        .catch(err => {
+            dispatch(failed_to_delete_site(err))
+        })
+    }
+}
+
+// Update a site
+
+export const updateSite = (id, formData, route) => {
+    return dispatch => {
+        axios.put(`api/garages/${id}`, formData, {
+            headers: headers
+        })
+        .then(res => {
+            dispatch(update_success(res))
+            route.push('/sites')
+        })
+        .catch(err => {
+            dispatch(failed_to_update_site(err))
+        })
+    }
+}
+
+// Get site 
+
+export const getSite = (id) => {
+    return dispatch => {
+        axios.get(`api/garages/${id}`, {
+            headers: headers
+        })
+        .then(res => {
+            dispatch(populate_site(res.data))
+        })
+        .catch(err => {
+            dispatch(failed_to_populate_site())
+        })
+    }
+}
+
 // ************Dispatch***************
 
 /*  Populate the client site table or catch errors. 
@@ -155,6 +205,54 @@ const failed_to_populate_site_form_options = () => {
  const failed_to_get_site_options = (err) => {
      return {
          type: FAILED_TO_GET_SITE_OPTIONS,
+         payload: err
+     }
+ }
+
+ /* Delete site actions */
+
+ const delete_success = (res) => {
+     return {
+         type: DELETE_SITE,
+         payload: res
+     }
+ }
+
+ const failed_to_delete_site = (err) => {
+     return {
+         type: FAILED_TO_DELETE_SITE,
+         payload: err
+     }
+ }
+
+ /* Update site actions */
+
+ const update_success = (res) => {
+     return {
+         type: UPDATE_SITE,
+         payload: res
+     }
+ }
+
+ const failed_to_update_site = (err) => {
+     return {
+         type: FAILED_TO_UPDATE_SITE,
+         payload: err
+     }
+ }
+
+ // Get and set site
+
+ const populate_site = (res) => {
+     return {
+         type: GET_SITE,
+         payload: res
+     }
+ }
+
+ const failed_to_populate_site = (err) => {
+     return {
+         type: FAILED_TO_GET_SITE,
          payload: err
      }
  }

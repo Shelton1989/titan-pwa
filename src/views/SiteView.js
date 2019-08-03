@@ -260,7 +260,25 @@ function ResponsiveDrawer(props) {
             rows={props.sites}
             columns={columns}
           >
-            <Table />
+            <Table 
+              rowComponent={({row, ...restProps}) => {
+                return (
+                    <Table.Row 
+                      {...restProps}
+                      onClick={() => {
+                        // props.route.push(`/assets/${row.asset_serial_number}`)
+                        // console.log(row.url.split('/')[row.url.split('/').length - 1])
+                        let id = row.url.split('/')[row.url.split('/').length - 2]
+                        props.route.push(`/sites/${id}`)
+                      }}
+                      style={{
+                        cursor: 'pointer'
+                      }}
+                    />
+                  )
+                }
+              }
+            />
             <TableHeaderRow />
           </Grid>
         </Paper>
