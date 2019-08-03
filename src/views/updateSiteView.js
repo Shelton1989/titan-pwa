@@ -50,7 +50,7 @@ class UpdateSiteView extends Component {
     handleDelete = () => {
         this.setState({
             modal: true,
-            message: 'Are you sure you want to delete this asset?',
+            message: 'Are you sure you want to delete this site?',
             title: 'Please confirm',
         })
     }
